@@ -4,15 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.view.fragments.ProductListFragment
-import com.example.myapplication.view.listeners.MenuController
+import com.example.myapplication.view.fragments.ProductsFragment
+import com.example.myapplication.view.listeners.MenuListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
     private lateinit var navigation: BottomNavigationView
-    private val navigationListener = MenuController(this)
+    private val navigationListener = MenuListener(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeFirstFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, ProductListFragment())
+            .replace(R.id.fragment_container_view, ProductsFragment())
             .commit()
     }
 }
