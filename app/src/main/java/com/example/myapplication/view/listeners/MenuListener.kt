@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.view.fragments.CartFragment
-import com.example.myapplication.view.fragments.ProductsFragment
+import com.example.myapplication.view.fragments.ProductListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MenuListener (private val activity: AppCompatActivity): BottomNavigationView.OnNavigationItemSelectedListener {
@@ -13,7 +13,7 @@ class MenuListener (private val activity: AppCompatActivity): BottomNavigationVi
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menuItemProductList -> {
-                goToFragment(ProductsFragment())
+                goToFragment(ProductListFragment())
                 true
             }
             R.id.menuItemCart -> {

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentCartBinding
+import com.example.myapplication.model.models.CartItemTotals
 import com.example.myapplication.view.adapter.RecyclerCartProductListAdapter
 import com.example.myapplication.view.adapter.RecyclerCartTotalsAdapter
 import com.example.myapplication.viewmodel.CartViewModel
@@ -51,9 +52,9 @@ class CartFragment : Fragment() {
         recyclerCartProductList?.adapter = recyclerCartProductListAdapter
 
         recyclerCartTotals = binding.recyclerCartTotals
-        recyclerCartProductList?.layoutManager = LinearLayoutManager(context)
+        recyclerCartTotals?.layoutManager = LinearLayoutManager(context)
         recyclerCartTotalsAdapter = RecyclerCartTotalsAdapter(context)
-        recyclerCartTotals?.adapter = recyclerCartProductListAdapter
+        recyclerCartTotals?.adapter = recyclerCartTotalsAdapter
     }
 
     private fun initViewModels() {
@@ -64,8 +65,9 @@ class CartFragment : Fragment() {
         }
         CartViewModel.getLiveDataCartTotals().observe(viewLifecycleOwner) {
             recyclerCartTotalsAdapter.setCartListTotals(it)
+            recyclerCartTotalsAdapter.notifyItemRangeInserted(0, it.size)
             recyclerCartTotalsAdapter.notifyDataSetChanged()
         }
-
+        CartViewModel.addCartTotalsItemList(CartItemTotals.getCartItemTotalsBasicList())
     }
 }

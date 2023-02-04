@@ -32,13 +32,6 @@ class CartViewModel: ViewModel() {
             liveDataCartProductList.postValue(cartProductList)
         }
 
-        fun addCartTotalsItem(cartItemTotals: CartItemTotals) {
-            if (!cartTotalsList.contains(cartItemTotals)) {
-                cartTotalsList.add(cartItemTotals)
-                liveDataCartTotals.postValue(cartTotalsList)
-            }
-        }
-
         fun removeCartProductItem(cartProductItem: CartProductItem) {
             if (isCardProductInList(cartProductItem.productItem)) {
                 val index = cartProductList.indexOf(cartProductItem)
@@ -54,6 +47,13 @@ class CartViewModel: ViewModel() {
 
         private fun isCardProductInList(productItem: ProductItem) : Boolean {
             return cartProductList.any { it.productItem == productItem }
+        }
+
+        fun addCartTotalsItemList(cartItemTotalsList: MutableList<CartItemTotals>) {
+            if (cartItemTotalsList.isNotEmpty()) {
+                cartTotalsList = cartItemTotalsList
+                liveDataCartTotals.postValue(cartTotalsList)
+            }
         }
     }
 }
