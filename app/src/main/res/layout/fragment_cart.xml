@@ -19,12 +19,6 @@
             android:layout_height="wrap_content"
             android:text="Buy"
             android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_cart_add_items"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add more products"
-            android:layout_weight="0"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

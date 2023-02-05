@@ -18,6 +18,7 @@ class RecyclerCartProductListAdapter(private val context: Context?):
 
     fun setCartProductsList(cartProductsList: List<CartProductItem>) {
         this.cartProductsList = cartProductsList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartProductHolder {
@@ -27,15 +28,17 @@ class RecyclerCartProductListAdapter(private val context: Context?):
 
     override fun onBindViewHolder(holder: CartProductHolder, position: Int) {
         val cartProduct = cartProductsList[position]
-        holder.tvCartItemCode.text = cartProduct.productItem.code
-        holder.tvCartItemName.text = cartProduct.productItem.name
-        holder.tvCartItemPrice.text = cartProduct.productItem.price.toString()
-        holder.tvCartItemCount.text = cartProduct.itemCount.toString()
-        holder.btnCartItemPlus.setOnClickListener {
-            CartViewModel.addCartProductItem(cartProduct)
-        }
-        holder.btnCartItemMinus.setOnClickListener {
-            CartViewModel.removeCartProductItem(cartProduct)
+        with(holder) {
+            tvCartItemCode.text = cartProduct.productItem.code
+            tvCartItemName.text = cartProduct.productItem.name
+            tvCartItemPrice.text = cartProduct.productItem.price.toString()
+            tvCartItemCount.text = cartProduct.itemCount.toString()
+            btnCartItemPlus.setOnClickListener {
+                CartViewModel.addCartProductItem(cartProduct)
+            }
+            btnCartItemMinus.setOnClickListener {
+                CartViewModel.removeCartProductItem(cartProduct)
+            }
         }
     }
 
@@ -44,20 +47,11 @@ class RecyclerCartProductListAdapter(private val context: Context?):
     }
 
     inner class CartProductHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var btnCartItemPlus: Button
-        var btnCartItemMinus: Button
-        var tvCartItemCount: TextView
-        var tvCartItemCode: TextView
-        var tvCartItemName: TextView
-        var tvCartItemPrice: TextView
-
-        init {
-            btnCartItemPlus = itemView.findViewById(R.id.btn_cart_plus)
-            btnCartItemMinus = itemView.findViewById(R.id.btn_cart_minus)
-            tvCartItemCount = itemView.findViewById(R.id.tv_cart_item_count)
-            tvCartItemCode = itemView.findViewById(R.id.tv_cart_product_code)
-            tvCartItemName = itemView.findViewById(R.id.tv_cart_product_name)
-            tvCartItemPrice = itemView.findViewById(R.id.tv_cart_product_price)
-        }
+        val btnCartItemPlus: Button = itemView.findViewById(R.id.btn_cart_plus)
+        val btnCartItemMinus: Button = itemView.findViewById(R.id.btn_cart_minus)
+        val tvCartItemCount: TextView = itemView.findViewById(R.id.tv_cart_item_count)
+        val tvCartItemCode: TextView = itemView.findViewById(R.id.tv_cart_product_code)
+        val tvCartItemName: TextView = itemView.findViewById(R.id.tv_cart_product_name)
+        val tvCartItemPrice: TextView = itemView.findViewById(R.id.tv_cart_product_price)
     }
 }

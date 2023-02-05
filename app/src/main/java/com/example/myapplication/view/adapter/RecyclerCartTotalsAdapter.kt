@@ -17,31 +17,26 @@ class RecyclerCartTotalsAdapter(private val context: Context?):
 
     fun setCartListTotals(cartListTotals: List<CartItemTotals>) {
         this.cartListTotals = cartListTotals
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartTotalsHolder {
-        var itemView = LayoutInflater.from(context).inflate(R.layout.item_row_cart_totals, parent, false)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.item_row_cart_totals, parent, false)
         return CartTotalsHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: CartTotalsHolder, position: Int) {
-        var cartTotalItem = cartListTotals[position]
-        holder.tvCartTotalsDescription.text = cartTotalItem.description
-        holder.tvCartTotalsPrice.text = cartTotalItem.price.toString()
+        val cartTotalItem = cartListTotals[position]
+        with(holder) {
+            tvCartTotalsDescription.text = cartTotalItem.description
+            tvCartTotalsPrice.text = cartTotalItem.price.toString()
+        }
     }
 
-    override fun getItemCount(): Int {
-        return cartListTotals.size
-    }
+    override fun getItemCount() = cartListTotals.size
 
     inner class CartTotalsHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var tvCartTotalsDescription: TextView
-        var tvCartTotalsPrice: TextView
-
-        init {
-            tvCartTotalsDescription = itemView.findViewById(R.id.tv_cart_totals_description)
-            tvCartTotalsPrice = itemView.findViewById(R.id.tv_cart_totals_price)
-        }
-
+        val tvCartTotalsPrice: TextView = itemView.findViewById(R.id.tv_cart_totals_description)
+        val tvCartTotalsDescription: TextView = itemView.findViewById(R.id.tv_cart_totals_price)
     }
 }

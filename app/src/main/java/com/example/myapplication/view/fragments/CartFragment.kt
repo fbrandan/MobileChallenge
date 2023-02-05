@@ -61,13 +61,9 @@ class CartFragment : Fragment() {
         cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
         CartViewModel.getLiveDataCartProductList().observe(viewLifecycleOwner) {
             recyclerCartProductListAdapter.setCartProductsList(it)
-            recyclerCartProductListAdapter.notifyDataSetChanged()
         }
         CartViewModel.getLiveDataCartTotals().observe(viewLifecycleOwner) {
             recyclerCartTotalsAdapter.setCartListTotals(it)
-            recyclerCartTotalsAdapter.notifyItemRangeInserted(0, it.size)
-            recyclerCartTotalsAdapter.notifyDataSetChanged()
         }
-        CartViewModel.addCartTotalsItemList(CartItemTotals.getCartItemTotalsBasicList())
     }
 }

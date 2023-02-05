@@ -52,7 +52,6 @@ class ProductListFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             if (it != null) {
                 recyclerAdapter.setProductList(it)
-                recyclerAdapter.notifyDataSetChanged()
             } else {
                 Toast.makeText(context, "ERROR", Toast.LENGTH_LONG)
             }

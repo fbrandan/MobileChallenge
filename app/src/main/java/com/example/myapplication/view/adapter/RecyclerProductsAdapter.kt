@@ -3,7 +3,6 @@ package com.example.myapplication.view.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
@@ -20,6 +19,7 @@ class RecyclerProductsAdapter(private val context: Context?):
 
     fun setProductList(productsList: List<ProductItem>) {
         this.productsList = productsList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsHolder {
@@ -29,29 +29,22 @@ class RecyclerProductsAdapter(private val context: Context?):
 
     override fun onBindViewHolder(holder: ProductsHolder, position: Int) {
         val product = productsList[position]
-        holder.tvCode.text = product.code
-        holder.tvName.text = product.name
-        holder.tvPrice.text = product.price.toString()
-        holder.btnAddProductItem.setOnClickListener {
-            CartViewModel.addCartProductItem(CartProductItem(1, productsList[position]))
+        with(holder) {
+            tvCode.text = product.code
+            tvName.text = product.name
+            tvPrice.text = product.price.toString()
+            btnAddProductItem.setOnClickListener {
+                CartViewModel.addCartProductItem(CartProductItem(1, productsList[position]))
+            }
         }
     }
 
-    override fun getItemCount(): Int {
-        return productsList.size
-    }
+    override fun getItemCount() = productsList.size
 
     inner class ProductsHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var tvCode: TextView
-        var tvName: TextView
-        var tvPrice: TextView
-        var btnAddProductItem: Button
-
-        init {
-            tvCode = itemView.findViewById(R.id.tv_product_code)
-            tvName = itemView.findViewById(R.id.tv_product_name)
-            tvPrice = itemView.findViewById(R.id.tv_product_price)
-            btnAddProductItem = itemView.findViewById(R.id.btn_product_add_to_cart)
-        }
+        val tvCode: TextView = itemView.findViewById(R.id.tv_product_code)
+        val tvName: TextView = itemView.findViewById(R.id.tv_product_name)
+        val tvPrice: TextView = itemView.findViewById(R.id.tv_product_price)
+        val btnAddProductItem: Button = itemView.findViewById(R.id.btn_product_add_to_cart)
     }
 }
