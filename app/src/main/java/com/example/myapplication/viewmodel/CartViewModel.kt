@@ -1,50 +1,56 @@
 package com.example.myapplication.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.model.models.CartItemTotals
-import com.example.myapplication.model.models.CartItemTotals.Companion.updateValuesCartItemTotalsBasicList
 import com.example.myapplication.model.models.CartProductItem
-import com.example.myapplication.model.models.ProductItem
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CartViewModel: ViewModel() {
-    companion object {
-        private var liveDataCartProductList: MutableLiveData<List<CartProductItem>> = MutableLiveData()
-        private var liveDataCartTotals: MutableLiveData<List<CartItemTotals>> = MutableLiveData()
+@HiltViewModel
+class CartViewModel @Inject constructor(): ViewModel() {
+    private val _cartProductListLiveData = MutableLiveData<List<CartProductItem>>()
+    val cartProductListLiveData: LiveData<List<CartProductItem>>
+    get() = _cartProductListLiveData
 
-        private var cartProductList = mutableListOf<CartProductItem>()
+    private val _cartItemTotalsListLiveData = MutableLiveData<List<CartItemTotals>>()
+    val cartItemTotalsListLiveData: LiveData<List<CartItemTotals>>
+    get() = _cartItemTotalsListLiveData
 
-        fun getLiveDataCartProductList(): MutableLiveData<List<CartProductItem>> {
-            return liveDataCartProductList
+    private var cartProductList = mutableListOf<CartProductItem>()
+
+    fun addCartProductItem(cartProductItem: CartProductItem) {
+        val index = cartProductList.indexOfFirst { it.productItem == cartProductItem.productItem }
+        if (index != -1) {
+            cartProductList[index].itemCount ++
+        } else {
+            cartProductList.add(cartProductItem)
         }
+        _cartItemTotalsListLiveData.postValue(
+            CartItemTotals.updateValuesCartItemTotalsBasicList(
+                cartProductList
+            )
+        )
+        _cartProductListLiveData.postValue(cartProductList)
+    }
 
-        fun getLiveDataCartTotals(): MutableLiveData<List<CartItemTotals>> {
-            return liveDataCartTotals
-        }
-
-        fun addCartProductItem(cartProductItem: CartProductItem) {
-            val index = cartProductList.indexOfFirst { it.productItem == cartProductItem.productItem }
-            if (index != -1) {
-                cartProductList[index].itemCount ++
+    fun removeCartProductItem(cartProductItem: CartProductItem) {
+        val index = cartProductList.indexOf(cartProductItem)
+        if (index != -1) {
+            val item = cartProductList[index]
+            if (item.itemCount > 1) {
+                item.itemCount--
             } else {
-                cartProductList.add(cartProductItem)
+                cartProductList.removeAt(index)
             }
-            liveDataCartTotals.postValue(updateValuesCartItemTotalsBasicList(cartProductList))
-            liveDataCartProductList.postValue(cartProductList)
-        }
-
-        fun removeCartProductItem(cartProductItem: CartProductItem) {
-            val index = cartProductList.indexOf(cartProductItem)
-            if (index != -1) {
-                val item = cartProductList[index]
-                if (item.itemCount > 1) {
-                    item.itemCount--
-                } else {
-                    cartProductList.removeAt(index)
-                }
-                liveDataCartTotals.postValue(updateValuesCartItemTotalsBasicList(cartProductList))
-                liveDataCartProductList.postValue(cartProductList)
-            }
+            _cartItemTotalsListLiveData.postValue(
+                CartItemTotals.updateValuesCartItemTotalsBasicList(
+                    cartProductList
+                )
+            )
+            _cartProductListLiveData.postValue(cartProductList)
         }
     }
 }

@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.models.CartItemTotals
 import com.example.myapplication.viewmodel.CartViewModel
+import javax.inject.Inject
 
-class RecyclerCartTotalsAdapter(private val context: Context?):
+class RecyclerCartTotalsAdapter @Inject constructor(private val context: Context?):
     RecyclerView.Adapter<RecyclerCartTotalsAdapter.CartTotalsHolder>() {
 
     private var cartListTotals: List<CartItemTotals> = emptyList()
@@ -21,8 +22,7 @@ class RecyclerCartTotalsAdapter(private val context: Context?):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartTotalsHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.item_row_cart_totals, parent, false)
-        return CartTotalsHolder(itemView)
+        return CartTotalsHolder(LayoutInflater.from(context).inflate(R.layout.item_row_cart_totals, parent, false))
     }
 
     override fun onBindViewHolder(holder: CartTotalsHolder, position: Int) {

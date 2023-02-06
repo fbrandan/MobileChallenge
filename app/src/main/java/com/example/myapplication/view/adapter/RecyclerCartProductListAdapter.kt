@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.models.CartProductItem
 import com.example.myapplication.viewmodel.CartViewModel
+import javax.inject.Inject
 
-class RecyclerCartProductListAdapter(private val context: Context?):
+class RecyclerCartProductListAdapter @Inject constructor(private val context: Context?, private val cartViewModel: CartViewModel):
     RecyclerView.Adapter<RecyclerCartProductListAdapter.CartProductHolder>() {
 
     private var cartProductsList: List<CartProductItem> = emptyList()
@@ -22,8 +23,7 @@ class RecyclerCartProductListAdapter(private val context: Context?):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartProductHolder {
-        var itemView = LayoutInflater.from(context).inflate(R.layout.item_row_cart_product_list, parent, false)
-        return CartProductHolder(itemView)
+        return CartProductHolder(LayoutInflater.from(context).inflate(R.layout.item_row_cart_product_list, parent, false))
     }
 
     override fun onBindViewHolder(holder: CartProductHolder, position: Int) {
@@ -34,17 +34,15 @@ class RecyclerCartProductListAdapter(private val context: Context?):
             tvCartItemPrice.text = cartProduct.productItem.price.toString()
             tvCartItemCount.text = cartProduct.itemCount.toString()
             btnCartItemPlus.setOnClickListener {
-                CartViewModel.addCartProductItem(cartProduct)
+                cartViewModel.addCartProductItem(cartProduct)
             }
             btnCartItemMinus.setOnClickListener {
-                CartViewModel.removeCartProductItem(cartProduct)
+                cartViewModel.removeCartProductItem(cartProduct)
             }
         }
     }
 
-    override fun getItemCount(): Int {
-        return cartProductsList.size
-    }
+    override fun getItemCount(): Int = cartProductsList.size
 
     inner class CartProductHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val btnCartItemPlus: Button = itemView.findViewById(R.id.btn_cart_plus)

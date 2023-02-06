@@ -13,6 +13,10 @@ import com.example.myapplication.model.models.CartItemTotals
 import com.example.myapplication.view.adapter.RecyclerCartProductListAdapter
 import com.example.myapplication.view.adapter.RecyclerCartTotalsAdapter
 import com.example.myapplication.viewmodel.CartViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 /**
@@ -20,12 +24,12 @@ import com.example.myapplication.viewmodel.CartViewModel
  * Use the [CartFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CartFragment : Fragment() {
+@AndroidEntryPoint
+class CartFragment @Inject constructor(private val cartViewModel: CartViewModel) : Fragment() {
     private lateinit var binding: FragmentCartBinding
 
     private var recyclerCartProductList: RecyclerView? = null
     private lateinit var recyclerCartProductListAdapter: RecyclerCartProductListAdapter
-    private lateinit var cartViewModel: CartViewModel
 
     private var recyclerCartTotals: RecyclerView? = null
     private lateinit var recyclerCartTotalsAdapter: RecyclerCartTotalsAdapter
@@ -48,7 +52,7 @@ class CartFragment : Fragment() {
     private fun initViews() {
         recyclerCartProductList = binding.recyclerCartProducts
         recyclerCartProductList?.layoutManager = LinearLayoutManager(context)
-        recyclerCartProductListAdapter = RecyclerCartProductListAdapter(context)
+        recyclerCartProductListAdapter = RecyclerCartProductListAdapter(context, cartViewModel)
         recyclerCartProductList?.adapter = recyclerCartProductListAdapter
 
         recyclerCartTotals = binding.recyclerCartTotals
@@ -58,11 +62,10 @@ class CartFragment : Fragment() {
     }
 
     private fun initViewModels() {
-        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
-        CartViewModel.getLiveDataCartProductList().observe(viewLifecycleOwner) {
+        cartViewModel.cartProductListLiveData.observe(viewLifecycleOwner) {
             recyclerCartProductListAdapter.setCartProductsList(it)
         }
-        CartViewModel.getLiveDataCartTotals().observe(viewLifecycleOwner) {
+        cartViewModel.cartItemTotalsListLiveData.observe(viewLifecycleOwner) {
             recyclerCartTotalsAdapter.setCartListTotals(it)
         }
     }

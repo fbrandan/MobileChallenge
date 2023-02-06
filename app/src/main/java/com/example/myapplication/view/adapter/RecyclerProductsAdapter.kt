@@ -11,8 +11,9 @@ import com.example.myapplication.R
 import com.example.myapplication.model.models.CartProductItem
 import com.example.myapplication.model.models.ProductItem
 import com.example.myapplication.viewmodel.CartViewModel
+import javax.inject.Inject
 
-class RecyclerProductsAdapter(private val context: Context?):
+class RecyclerProductsAdapter @Inject constructor(private val context: Context?, private val cartViewModel: CartViewModel):
     RecyclerView.Adapter<RecyclerProductsAdapter.ProductsHolder>() {
 
     private var productsList: List<ProductItem> = emptyList()
@@ -23,8 +24,7 @@ class RecyclerProductsAdapter(private val context: Context?):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsHolder {
-        var itemView = LayoutInflater.from(context).inflate(R.layout.item_row_product_list, parent, false)
-        return ProductsHolder(itemView)
+        return ProductsHolder(LayoutInflater.from(context).inflate(R.layout.item_row_product_list, parent, false))
     }
 
     override fun onBindViewHolder(holder: ProductsHolder, position: Int) {
@@ -34,7 +34,7 @@ class RecyclerProductsAdapter(private val context: Context?):
             tvName.text = product.name
             tvPrice.text = product.price.toString()
             btnAddProductItem.setOnClickListener {
-                CartViewModel.addCartProductItem(CartProductItem(1, productsList[position]))
+                cartViewModel.addCartProductItem(CartProductItem(1, productsList[position]))
             }
         }
     }

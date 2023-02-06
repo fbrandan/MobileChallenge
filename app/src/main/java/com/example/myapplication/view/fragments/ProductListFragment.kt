@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentProductListBinding
 import com.example.myapplication.view.adapter.RecyclerProductsAdapter
+import com.example.myapplication.viewmodel.CartViewModel
 import com.example.myapplication.viewmodel.ProductsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 /**
@@ -20,9 +23,9 @@ import com.example.myapplication.viewmodel.ProductsViewModel
  * Use the [ProductListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProductListFragment : Fragment() {
+@AndroidEntryPoint
+class ProductListFragment @Inject constructor(private var viewModel: ProductsViewModel, private var cartViewModel: CartViewModel) : Fragment() {
     private lateinit var binding: FragmentProductListBinding
-    private lateinit var viewModel: ProductsViewModel
     private lateinit var recyclerAdapter: RecyclerProductsAdapter
     private var recycler: RecyclerView? = null
 
@@ -32,31 +35,24 @@ class ProductListFragment : Fragment() {
     ): View? {
         binding = FragmentProductListBinding.inflate(inflater, container, false)
         initRecyclerView()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        return binding.root
     }
 
     private fun initRecyclerView() {
         recycler = binding.root.findViewById(R.id.recycler_view_products)
         recycler?.layoutManager = LinearLayoutManager(context)
-        recyclerAdapter = RecyclerProductsAdapter(context)
+        recyclerAdapter = RecyclerProductsAdapter(context, cartViewModel)
         recycler?.adapter = recyclerAdapter
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
-        viewModel.getLiveData().observe(viewLifecycleOwner) {
+        viewModel.productsLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 recyclerAdapter.setProductList(it)
             } else {
                 Toast.makeText(context, "ERROR", Toast.LENGTH_LONG)
             }
         }
-
-        viewModel.getProducts()
     }
 }

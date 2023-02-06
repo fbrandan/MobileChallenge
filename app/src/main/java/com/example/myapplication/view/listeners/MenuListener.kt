@@ -6,18 +6,21 @@ import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.view.fragments.CartFragment
 import com.example.myapplication.view.fragments.ProductListFragment
+import com.example.myapplication.viewmodel.CartViewModel
+import com.example.myapplication.viewmodel.ProductsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import javax.inject.Inject
 
-class MenuListener (private val activity: AppCompatActivity): BottomNavigationView.OnNavigationItemSelectedListener {
+class MenuListener @Inject constructor(private val activity: AppCompatActivity, private val productsViewModel: ProductsViewModel, private val cartViewModel: CartViewModel): BottomNavigationView.OnNavigationItemSelectedListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menuItemProductList -> {
-                goToFragment(ProductListFragment())
+                goToFragment(ProductListFragment(productsViewModel,cartViewModel))
                 true
             }
             R.id.menuItemCart -> {
-                goToFragment(CartFragment())
+                goToFragment(CartFragment(cartViewModel))
                 true
             }
             else -> false
