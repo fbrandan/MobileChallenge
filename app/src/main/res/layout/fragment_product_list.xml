@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.ProductListFragment"
-    android:padding="10dp"
-    android:background="@color/black">
+    tools:context="challenges.cabify.myapplication.view.fragments.ProductListFragment"
+    android:background="@color/purple_500">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray"/>
+        android:background="@color/purple_500"/>
 
 </FrameLayout>

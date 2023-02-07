@@ -16,6 +16,6 @@ import com.google.gson.annotations.SerializedName
  * @since 2023-02-07
  */
 data class ProductItem(
-    @SerializedName(KEY_PRODUCT_ITEM_NAME) val code: String,
-    @SerializedName(KEY_PRODUCT_ITEM_CODE) val name: String,
+    @SerializedName(KEY_PRODUCT_ITEM_CODE) val code: String,
+    @SerializedName(KEY_PRODUCT_ITEM_NAME) val name: String,
     @SerializedName(KEY_PRODUCT_ITEM_PRICE) val price: Double)

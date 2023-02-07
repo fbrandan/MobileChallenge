@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import challenges.cabify.myapplication.Constants.CURRENCY_SYMBOL
 import challenges.cabify.myapplication.model.models.CartItemTotals
 import com.cabify.myapplication.R
 import javax.inject.Inject
@@ -55,7 +56,7 @@ class RecyclerCartTotalsAdapter @Inject constructor(private val context: Context
         val cartTotalItem = cartListTotals[position]
         with(holder) {
             tvCartTotalsDescription.text = cartTotalItem.description
-            tvCartTotalsPrice.text = cartTotalItem.price.toString()
+            tvCartTotalsPrice.text = CURRENCY_SYMBOL + cartTotalItem.price
         }
     }
 
@@ -72,7 +73,7 @@ class RecyclerCartTotalsAdapter @Inject constructor(private val context: Context
      * @param itemView The view for the [CartTotalsHolder].
      */
     inner class CartTotalsHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val tvCartTotalsPrice: TextView = itemView.findViewById(R.id.tv_cart_totals_description)
-        val tvCartTotalsDescription: TextView = itemView.findViewById(R.id.tv_cart_totals_price)
+        val tvCartTotalsDescription: TextView = itemView.findViewById(R.id.tv_cart_totals_description)
+        val tvCartTotalsPrice: TextView = itemView.findViewById(R.id.tv_cart_totals_price)
     }
 }

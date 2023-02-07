@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import challenges.cabify.myapplication.view.adapter.RecyclerCartProductListAdapter
 import challenges.cabify.myapplication.view.adapter.RecyclerCartTotalsAdapter
 import challenges.cabify.myapplication.viewmodel.CartViewModel
+import com.cabify.myapplication.R
 import com.cabify.myapplication.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -76,6 +78,7 @@ class CartFragment @Inject constructor(private val cartViewModel: CartViewModel)
 
         recyclerCartTotals = binding.recyclerCartTotals
         recyclerCartTotals?.layoutManager = LinearLayoutManager(context)
+        recyclerCartTotals?.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         recyclerCartTotalsAdapter = RecyclerCartTotalsAdapter(context)
         recyclerCartTotals?.adapter = recyclerCartTotalsAdapter
     }

@@ -2,62 +2,91 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cart_item_row_background"
+    android:elevation="2dp"
+    android:layout_marginVertical="8dp">
 
-        <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/item_row_cart_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="4dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:id="@+id/btn_cart_plus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="+"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/purple_900"/>
+        <TextView
+            android:id="@+id/tv_cart_item_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/btn_cart_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="-"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/purple_900"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="16dp"
+            app:layout_constraintRight_toLeftOf="@id/item_row_cart_buttons"
+        app:layout_constraintLeft_toLeftOf="parent">
             <TextView
                 android:id="@+id/tv_cart_product_code"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item Text" />
+                android:layout_height="match_parent"
+                android:text="Item Text"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
             <TextView
                 android:id="@+id/tv_cart_product_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item Text" />
+                android:layout_height="match_parent"
+                android:text="Item Text"
+                android:layout_weight="1"
+                android:gravity="left|top"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="16dp"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/separator"/>
             <TextView
                 android:id="@+id/tv_cart_product_price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item Text" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:text="Item Text"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textSize="12sp"
+                android:textColor="@color/gray"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <Button
-                android:id="@+id/btn_cart_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+" />
-
-            <TextView
-                android:id="@+id/tv_cart_item_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="0" />
-
-            <Button
-                android:id="@+id/btn_cart_minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,3 +20,5 @@ const val KEY_PRODUCT_RESPONSE = "products"
 const val DEFAULT_NETWORK_ERROR_MESSAGE = "Error retrieving product list"
 
 const val DEFAULT_TIMEOUT_MILISECONDS = 5000L
+
+const val CURRENCY_SYMBOL = "$ "

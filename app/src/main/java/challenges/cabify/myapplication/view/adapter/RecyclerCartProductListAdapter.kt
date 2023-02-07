@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import challenges.cabify.myapplication.Constants.CURRENCY_SYMBOL
 import challenges.cabify.myapplication.model.models.CartProductItem
 import challenges.cabify.myapplication.viewmodel.CartViewModel
 import com.cabify.myapplication.R
@@ -59,7 +60,7 @@ class RecyclerCartProductListAdapter @Inject constructor(private val context: Co
         with(holder) {
             tvCartItemCode.text = cartProduct.productItem.code
             tvCartItemName.text = cartProduct.productItem.name
-            tvCartItemPrice.text = cartProduct.productItem.price.toString()
+            tvCartItemPrice.text = CURRENCY_SYMBOL + cartProduct.productItem.price
             tvCartItemCount.text = cartProduct.itemCount.toString()
             btnCartItemPlus.setOnClickListener {
                 cartViewModel.addCartProductItem(cartProduct)
