@@ -16,9 +16,16 @@ import javax.inject.Inject
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [CartFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A [Fragment] subclass that displays a list of products in a shopping cart using [RecyclerView].
+ *
+ * @property cartViewModel: [CartViewModel] The view model for this fragment.
+ *
+ * @constructor Creates a new instance of [CartFragment].
+ * @param cartViewModel: [CartViewModel] The view model for this fragment.
+ *
+ * @author Facundo Brandan
+ * @version 1.0
+ * @since 2023-02-07
  */
 @AndroidEntryPoint
 class CartFragment @Inject constructor(private val cartViewModel: CartViewModel) : Fragment() {
@@ -30,7 +37,15 @@ class CartFragment @Inject constructor(private val cartViewModel: CartViewModel)
     private var recyclerCartTotals: RecyclerView? = null
     private lateinit var recyclerCartTotalsAdapter: RecyclerCartTotalsAdapter
 
-
+    /**
+     * Inflates the layout for this fragment, sets up the views, and initializes the view models.
+     *
+     * @param inflater [LayoutInflater] The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container [ViewGroup] If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState [Bundle] If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     *
+     * @return [View] The view for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,11 +55,19 @@ class CartFragment @Inject constructor(private val cartViewModel: CartViewModel)
         return binding.root
     }
 
+    /**
+    * Called when the fragment's view has been fully created.
+    * @param view The View returned by [onCreateView].
+    * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+    */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModels()
     }
 
+    /**
+     * Initializes the view of this fragment.
+     */
     private fun initViews() {
         recyclerCartProductList = binding.recyclerCartProducts
         recyclerCartProductList?.layoutManager = LinearLayoutManager(context)
@@ -57,6 +80,9 @@ class CartFragment @Inject constructor(private val cartViewModel: CartViewModel)
         recyclerCartTotals?.adapter = recyclerCartTotalsAdapter
     }
 
+    /**
+     * Initializes the view models for this fragment.
+     */
     private fun initViewModels() {
         cartViewModel.cartProductsLiveData.observe(viewLifecycleOwner) {
             recyclerCartProductListAdapter.setCartProductsList(it)
