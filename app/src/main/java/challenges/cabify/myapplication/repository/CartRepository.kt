@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import challenges.cabify.myapplication.model.models.CartItemTotals
 import challenges.cabify.myapplication.model.models.CartProductItem
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * CartRepository is a class responsible for managing the data of the shopping cart.
@@ -23,6 +24,7 @@ import javax.inject.Inject
  * @version 1.0
  * @since 2023-02-07
  */
+@Singleton
 class CartRepository @Inject constructor() {
     private val _cartProductListLiveData = MutableLiveData<List<CartProductItem>>()
     val cartProductListLiveData: LiveData<List<CartProductItem>>

@@ -22,3 +22,10 @@ const val DEFAULT_NETWORK_ERROR_MESSAGE = "Error retrieving product list"
 const val DEFAULT_TIMEOUT_MILISECONDS = 5000L
 
 const val CURRENCY_SYMBOL = "$ "
+
+const val MESSAGE_NO_PRODUCTS_IN_CART = "There are not item in the shopping cart\n add some!"
+
+const val ACTION_BAR_TITLE = "Cabify Shopping"
+
+const val ACTION_BAR_SUB_TITLE_PRODUCTS = "PRODUCTS"
+const val ACTION_BAR_SUB_TITLE_CART = "CART"

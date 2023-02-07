@@ -48,4 +48,6 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
      * @param cartProductItem is the [CartProductItem] to be removed from the cart.
      */
     fun removeCartProductItem(cartProductItem: CartProductItem) = cartRepository.removeCartProductItem(cartProductItem)
+
+    fun getCartProductList() = cartRepository.cartProductList
 }

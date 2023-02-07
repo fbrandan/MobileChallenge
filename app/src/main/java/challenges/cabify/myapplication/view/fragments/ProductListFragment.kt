@@ -72,7 +72,7 @@ class ProductListFragment @Inject constructor(private var productViewModel: Prod
             if (it != null) {
                 recyclerAdapter.setProductList(it)
             } else {
-                Toast.makeText(context, DEFAULT_NETWORK_ERROR_MESSAGE, Toast.LENGTH_LONG)
+                Toast.makeText(context, DEFAULT_NETWORK_ERROR_MESSAGE, Toast.LENGTH_LONG).show()
             }
         }
     }

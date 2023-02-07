@@ -1,8 +1,11 @@
 package challenges.cabify.myapplication.view.activity
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import challenges.cabify.myapplication.Constants.ACTION_BAR_SUB_TITLE_CART
+import challenges.cabify.myapplication.Constants.ACTION_BAR_TITLE
 import challenges.cabify.myapplication.view.fragments.ProductListFragment
 import challenges.cabify.myapplication.view.listeners.MenuListener
 import challenges.cabify.myapplication.viewmodel.CartViewModel
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        initializeSupportActionBar()
         initializeViewModels()
         initializeMenu()
         initializeFirstFragment()
@@ -70,5 +74,16 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, ProductListFragment(productsViewModel, cartViewModel))
             .commit()
+    }
+
+    /**
+     * Initializes the support action bar with custom view, background color, title, subtitle, and status bar color.
+     */
+    private fun initializeSupportActionBar() {
+        supportActionBar?.setCustomView(R.layout.action_bar)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.purple_900)))
+        supportActionBar?.title = ACTION_BAR_TITLE
+        supportActionBar?.subtitle = ACTION_BAR_SUB_TITLE_CART
+        window.statusBarColor = resources.getColor(R.color.purple_900)
     }
 }
