@@ -6,11 +6,21 @@ plugins {
 }
 
 android {
-    namespace 'com.example.myapplication'
+    signingConfigs {
+        debug {
+        }
+        release {
+            storeFile file('C:\\Users\\Facundo\\Documents\\keys\\challengeKey.jks')
+            storePassword '469lr48a'
+            keyAlias 'mobileChallenge'
+            keyPassword '469lr48a'
+        }
+    }
+    namespace 'com.cabify.myapplication'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.myapplication"
+        applicationId "com.cabify.myapplication"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -20,9 +30,26 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled = false
+        }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable = false
+            // Enables code shrinking, obfuscation, and optimization for only
+            // your project's release build type.
+            minifyEnabled = true
+
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+            shrinkResources = true
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -35,6 +62,13 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+
+    testOptions {
+        // Used for Unit testing Android dependent elements in /test folder
+        unitTests.includeAndroidResources  = true
+        unitTests.returnDefaultValues = true
     }
 }
 
@@ -58,6 +92,8 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.mockk:mockk:1.12.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
 }
